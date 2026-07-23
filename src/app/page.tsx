@@ -170,7 +170,7 @@ export default async function HomePage() {
       </section>
 
       {/* ==================== FEATURED COURSES ==================== */}
-      <section className="section">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="font-display text-3xl font-bold">Khóa học nổi bật</h2>
@@ -240,7 +240,7 @@ export default async function HomePage() {
       </section>
 
       {/* ==================== FEATURED PRODUCTS ==================== */}
-      <section className="section section-alt">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl bg-muted/50">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="font-display text-3xl font-bold">Sản phẩm số</h2>
@@ -309,7 +309,7 @@ export default async function HomePage() {
       </section>
 
       {/* ==================== LATEST BLOG POSTS ==================== */}
-      <section className="section">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="font-display text-3xl font-bold">Bài viết mới nhất</h2>
@@ -371,7 +371,7 @@ export default async function HomePage() {
       </section>
 
       {/* ==================== CTA SECTION ==================== */}
-      <section className="section">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
         <div className="rounded-2xl bg-gradient-to-r from-primary to-secondary p-8 sm:p-12 text-center text-white relative overflow-hidden">
           {/* Decorative circles */}
           <div className="absolute top-0 left-0 h-40 w-40 rounded-full bg-white/10 -translate-x-1/2 -translate-y-1/2" />
