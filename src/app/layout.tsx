@@ -1,24 +1,37 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "@/app/globals.css";
+import { Space_Grotesk, DM_Sans } from "next/font/google";
+import "./globals.css";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "TrungTienLearn - Học tập & Bán sản phẩm số",
+  title: "TrungTienLearn — Nền tảng học lập trình & mua khóa học online",
   description:
-    "Nền tảng học trực tuyến và mua bán sản phẩm số. Khóa học, ebook, template chất lượng cao.",
-  keywords: ["học online", "khóa học", "sản phẩm số", "ebook", "template"],
-  authors: [{ name: "TrungTienLearn" }],
-  openGraph: {
-    title: "TrungTienLearn",
-    description: "Nền tảng học trực tuyến và mua bán sản phẩm số",
-    type: "website",
-    locale: "vi_VN",
-  },
+    "Học lập trình từ cơ bản đến nâng cao, mua template, ebook, UI kit chất lượng cao. Cộng đồng developer Việt Nam.",
+  keywords: [
+    "lập trình",
+    "khóa học online",
+    "learn to code",
+    "template",
+    "ebook",
+    "developer",
+    "Vietnam",
+  ],
 };
 
 export default function RootLayout({
@@ -28,14 +41,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body
+        className={`${spaceGrotesk.variable} ${dmSans.variable} font-sans antialiased`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          disableTransitionOnChange={false}
         >
-          <div className="flex min-h-screen flex-col">
+          <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />

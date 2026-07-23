@@ -24,7 +24,7 @@ export function formatDate(date: string | Date) {
 export function slugify(text: string): string {
   return text
     .toLowerCase()
-    .replace(/+/g, "")
+    .replace(/\+/g, "")
     .replace(/\s+/g, "-")
     .replace(/[^\w-]+/g, "")
     .replace(/--+/g, "-")

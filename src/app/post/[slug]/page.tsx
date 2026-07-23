@@ -1,26 +1,20 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft, Share2 } from "lucide-react";
+import Link from "next/link";
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const supabase = await createClient();
 
-  // Fetch single post
   const { data: post, error } = await supabase
     .from("posts")
-    .select(`
-      *,
-      categories (name),
-      profiles (full_name, avatar_url)
-    `)
+    .select(`*, categories(name), profiles(full_name, avatar_url)`)
     .eq("slug", slug)
     .eq("status", "published")
     .single();
 
-  if (error || !post) {
-    notFound();
-  }
+  if (error || !post) notFound();
 
   // Increment views
   await supabase
@@ -30,17 +24,21 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-background">
-      <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+      <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary mb-8 transition-colors">
+          <ArrowLeft className="h-4 w-4" />
+          Quay lại blog
+        </Link>
+
         {/* Header */}
         <header className="mb-8">
           {post.categories?.name && (
-            <span className="inline-block text-sm font-medium bg-primary/10 text-primary px-3 py-1 rounded-full mb-4">
-              {post.categories.name}
-            </span>
+            <span className="inline-block badge badge-primary mb-4">{post.categories.name}</span>
           )}
-          <h1 className="text-3xl sm:text-4xl font-bold">{post.title}</h1>
-          
-          <div className="flex items-center gap-6 mt-6 text-sm text-muted-foreground">
+          <h1 className="font-display text-3xl sm:text-4xl font-bold leading-tight">{post.title}</h1>
+
+          <div className="flex flex-wrap items-center gap-5 mt-5 text-sm text-muted-foreground">
             <span className="flex items-center gap-1.5">
               <User className="h-4 w-4" />
               {post.profiles?.full_name || "Tác giả"}
@@ -62,15 +60,24 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <img
             src={post.cover_image}
             alt={post.title}
-            className="w-full h-64 sm:h-80 object-cover rounded-xl mb-8"
+            className="w-full h-64 sm:h-80 object-cover rounded-xl mb-8 shadow-lg"
           />
         )}
 
         {/* Content */}
-        <div 
-          className="prose prose-lg dark:prose-invert max-w-none"
+        <div
+          className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-a:text-primary prose-img:rounded-xl prose-img:shadow-md"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+
+        {/* Share */}
+        <div className="mt-12 pt-6 border-t flex items-center justify-between">
+          <span className="text-sm text-muted-foreground">Chia sẻ bài viết:</span>
+          <Button variant="outline" size="sm" className="gap-1.5">
+            <Share2 className="h-4 w-4" />
+            Chia sẻ
+          </Button>
+        </div>
       </article>
     </div>
   );
